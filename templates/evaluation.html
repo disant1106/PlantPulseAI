@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}LeafScan.ai | Evaluation{% endblock %}
+{% block eyebrow %}Demo validation{% endblock %}
+{% block heading %}Small labelled evaluation{% endblock %}
+
+{% block content %}
+<section class="grid two">
+  <form class="panel" action="{{ url_for('evaluation_add') }}" method="post">
+    <div class="panel-heading">
+      <p class="eyebrow">Manual sample</p>
+      <h2>Add demo evaluation case</h2>
+    </div>
+
+    <label>
+      Image filename
+      <input name="image_filename" type="text" placeholder="leaf_sample_01.jpg" required>
+    </label>
+
+    <div class="form-row">
+      <label>
+        Expected label
+        <select name="expected_label" required>
+          <option>Healthy</option>
+          <option>Diseased</option>
+          <option>Unclear</option>
+        </select>
+      </label>
+      <label>
+        AI predicted label
+        <select name="predicted_label" required>
+          <option>Healthy</option>
+          <option>Diseased</option>
+          <option>Unclear</option>
+        </select>
+      </label>
+    </div>
+
+    <label>
+      Notes
+      <input name="notes" type="text" placeholder="Optional observation">
+    </label>
+
+    <button class="primary-btn" type="submit">Add sample</button>
+  </form>
+
+  <div class="panel">
+    <div class="panel-heading">
+      <p class="eyebrow">Approximate match</p>
+      <h2>Evaluation summary</h2>
+    </div>
+    <div class="score">{{ summary.percentage }}%</div>
+    <p class="muted">{{ summary.correct }} correct out of {{ summary.total }} labelled demo samples.</p>
+    <p class="muted">This is a small labelled evaluation, not official model accuracy.</p>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-heading">
+    <p class="eyebrow">SQLite records</p>
+    <h2>Labelled demo cases</h2>
+  </div>
+
+  <div class="scan-list">
+    {% for sample in summary.samples %}
+      <div class="scan-row">
+        <div>
+          <strong>{{ sample.image_filename }}</strong>
+          <p class="muted">{{ sample.evaluated_at }}{% if sample.notes %} · {{ sample.notes }}{% endif %}</p>
+        </div>
+        <div class="scan-actions">
+          <span class="badge">Expected: {{ sample.expected_label }}</span>
+          <span class="badge">AI: {{ sample.predicted_label }}</span>
+          <span class="badge {{ 'healthy' if sample.match_status == 'Match' else 'high' }}">{{ sample.match_status }}</span>
+        </div>
+      </div>
+    {% else %}
+      <p class="muted">No labelled demo samples yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

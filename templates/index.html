@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}LeafScan.ai | Analyze{% endblock %}
+{% block heading %}Analyze leaf health{% endblock %}
+{% block status_class %}{{ 'ok' if gemini_configured else 'warn' }}{% endblock %}
+{% block status_text %}{{ 'Gemini configured' if gemini_configured else 'API key missing' }}{% endblock %}
+
+{% block content %}
+<section class="grid two">
+  <form class="panel upload-panel" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+    <div class="panel-heading">
+      <p class="eyebrow">Vision scan</p>
+      <h2>Upload a leaf image</h2>
+    </div>
+
+    <label class="dropzone" for="image">
+      <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" required>
+      <span class="upload-icon">+</span>
+      <strong>Choose JPG, PNG, or WebP</strong>
+      <small>Use a sharp, close leaf photo in natural light. The analysis is AI-assisted, not expert diagnosis.</small>
+    </label>
+
+    <p id="fileMeta" class="file-meta">No image selected</p>
+    <button class="primary-btn" type="submit">Run Gemini Vision Analysis</button>
+  </form>
+
+  <div class="panel preview-panel">
+    <div class="panel-heading">
+      <p class="eyebrow">Preview</p>
+      <h2>Image check</h2>
+    </div>
+    <div class="image-preview" id="previewBox">
+      <span>Preview appears here</span>
+    </div>
+    <div class="quality-list" id="qualityList"></div>
+  </div>
+</section>
+
+<section class="panel info-panel">
+  <div class="panel-heading">
+    <p class="eyebrow">How it works</p>
+    <h2>Honest AI vision workflow</h2>
+  </div>
+  <div class="detail-grid">
+    <div class="detail"><small>Analyzer</small>Gemini Vision/API</div>
+    <div class="detail"><small>Storage</small>SQLite database</div>
+    <div class="detail"><small>Reference table</small>Supportive common-issue notes only</div>
+    <div class="detail"><small>Evaluation</small>Small labelled demo comparison, not official model accuracy</div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

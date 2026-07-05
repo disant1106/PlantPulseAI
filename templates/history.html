@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}LeafScan.ai | History{% endblock %}
+{% block eyebrow %}Archive{% endblock %}
+{% block heading %}Scan history{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-heading split">
+    <div>
+      <p class="eyebrow">SQLite records</p>
+      <h2>Previous scans</h2>
+    </div>
+    <a class="ghost-btn" href="{{ url_for('index') }}">New scan</a>
+  </div>
+
+  <div class="scan-list">
+    {% for scan in scans %}
+      <div class="scan-row">
+        <div class="scan-title">
+          <img src="{{ url_for('uploaded_file', filename=scan.image_filename) }}" alt="">
+          <div>
+            <strong>{{ scan.probable_issue }}</strong>
+            <p class="muted">{{ scan.upload_timestamp }} · {{ scan.original_image_name }}</p>
+          </div>
+        </div>
+        <div class="scan-actions">
+          <span class="badge {{ scan.plant_health_status|lower }}">{{ scan.plant_health_status }}</span>
+          <span class="badge {{ scan.severity|lower }}">{{ scan.severity }}</span>
+          <a class="ghost-btn" href="{{ url_for('result', scan_id=scan.scan_id) }}">Open</a>
+          <a class="ghost-btn" href="{{ url_for('report', scan_id=scan.scan_id) }}">Report</a>
+        </div>
+      </div>
+    {% else %}
+      <p class="muted">No scans yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

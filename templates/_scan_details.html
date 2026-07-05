@@ -1,0 +1,42 @@
+<section class="list-section">
+  <strong>Visible symptoms</strong>
+  <ul>
+    {% for item in scan.symptoms %}
+      <li>{{ item }}</li>
+    {% else %}
+      <li>None listed</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="list-section">
+  <strong>Care recommendations</strong>
+  <ul>
+    {% for item in scan.care_recommendations %}
+      <li>{{ item }}</li>
+    {% else %}
+      <li>None listed</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="list-section">
+  <strong>Prevention tips</strong>
+  <ul>
+    {% for item in scan.prevention_tips %}
+      <li>{{ item }}</li>
+    {% else %}
+      <li>None listed</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="list-section">
+  <strong>Image quality note</strong>
+  <p class="muted">{{ scan.image_quality_note }}</p>
+</section>
+
+<section class="list-section">
+  <strong>Disclaimer</strong>
+  <p class="muted">{{ scan.disclaimer }}</p>
+</section>

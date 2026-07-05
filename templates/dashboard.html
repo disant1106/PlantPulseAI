@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}LeafScan.ai | Dashboard{% endblock %}
+{% block eyebrow %}SQLite insights{% endblock %}
+{% block heading %}Dashboard insights{% endblock %}
+
+{% block content %}
+<section class="metrics">
+  <div class="metric-card"><span>Total scans</span><strong>{{ metrics.total }}</strong></div>
+  <div class="metric-card"><span>Healthy</span><strong>{{ metrics.status_counts.Healthy }}</strong></div>
+  <div class="metric-card"><span>Diseased</span><strong>{{ metrics.status_counts.Diseased }}</strong></div>
+  <div class="metric-card"><span>Unclear</span><strong>{{ metrics.status_counts.Unclear }}</strong></div>
+</section>
+
+<section class="grid two">
+  <div class="panel chart-panel">
+    <div class="panel-heading">
+      <p class="eyebrow">Severity</p>
+      <h2>Distribution</h2>
+    </div>
+    <canvas id="severityChart"></canvas>
+  </div>
+
+  <div class="panel chart-panel">
+    <div class="panel-heading">
+      <p class="eyebrow">Detected issues</p>
+      <h2>Most common</h2>
+    </div>
+    <canvas id="issuesChart"></canvas>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-heading">
+    <p class="eyebrow">Latest activity</p>
+    <h2>Recent scans</h2>
+  </div>
+  <div class="scan-list">
+    {% for scan in metrics.recent_scans %}
+      <div class="scan-row">
+        <div class="scan-title">
+          <img src="{{ url_for('uploaded_file', filename=scan.image_filename) }}" alt="">
+          <div>
+            <strong>{{ scan.probable_issue }}</strong>
+            <p class="muted">{{ scan.upload_timestamp }} · {{ scan.original_image_name }}</p>
+          </div>
+        </div>
+        <div class="scan-actions">
+          <span class="badge {{ scan.plant_health_status|lower }}">{{ scan.plant_health_status }}</span>
+          <a class="ghost-btn" href="{{ url_for('result', scan_id=scan.scan_id) }}">Open</a>
+        </div>
+      </div>
+    {% else %}
+      <p class="muted">No scans yet.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  window.dashboardData = {{ {
+    "severity": metrics.severity_counts,
+    "issues": metrics.common_issues
+  } | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}LeafScan.ai | Result{% endblock %}
+{% block eyebrow %}Analysis result{% endblock %}
+{% block heading %}{{ scan.probable_issue }}{% endblock %}
+{% block status_class %}{{ scan.plant_health_status|lower }}{% endblock %}
+{% block status_text %}{{ scan.plant_health_status }}{% endblock %}
+
+{% block content %}
+<article class="panel result-card">
+  <div class="result-image">
+    <img src="{{ url_for('uploaded_file', filename=scan.image_filename) }}" alt="Uploaded leaf scan">
+  </div>
+
+  <div>
+    <div class="panel-heading split">
+      <div>
+        <p class="eyebrow">Scan {{ scan.scan_id[:8] }}</p>
+        <h2>{{ scan.probable_issue }}</h2>
+      </div>
+      <span class="badge {{ scan.plant_health_status|lower }}">{{ scan.plant_health_status }}</span>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail"><small>Severity</small><span class="badge {{ scan.severity|lower }}">{{ scan.severity }}</span></div>
+      <div class="detail"><small>Confidence estimate</small>{{ scan.confidence_estimate }}</div>
+      <div class="detail"><small>Uploaded</small>{{ scan.upload_timestamp }}</div>
+      <div class="detail"><small>Image</small>{{ scan.original_image_name }}</div>
+    </div>
+
+    {% if scan.error_info %}
+      <div class="flash warning">{{ scan.error_info }}</div>
+    {% endif %}
+
+    {% include "_scan_details.html" %}
+
+    <p class="actions">
+      <a class="ghost-btn" href="{{ url_for('report', scan_id=scan.scan_id) }}">Download report</a>
+      <a class="ghost-btn" href="{{ url_for('history') }}">View history</a>
+    </p>
+  </div>
+</article>
+{% endblock %}
