@@ -1,15 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}LeafScan.ai | Analyze{% endblock %}
-{% block heading %}Analyze leaf health{% endblock %}
+{% block title %}PlantPulse AI | Analyze{% endblock %}
+{% block heading %}Plant health, scanned beautifully{% endblock %}
 {% block status_class %}{{ 'ok' if gemini_configured else 'warn' }}{% endblock %}
 {% block status_text %}{{ 'Gemini configured' if gemini_configured else 'API key missing' }}{% endblock %}
 
 {% block content %}
+<section class="hero-panel">
+  <div class="hero-copy">
+    <p class="eyebrow">Gemini vision assistant</p>
+    <h2>Upload a leaf photo and get a clear plant health summary.</h2>
+    <p>
+      PlantPulse AI checks visible symptoms, estimates severity, suggests care steps,
+      and saves every scan into SQLite for history and dashboard insights.
+    </p>
+  </div>
+  <div class="plant-visual" aria-hidden="true">
+    <span class="stem"></span>
+    <span class="leaf leaf-a"></span>
+    <span class="leaf leaf-b"></span>
+    <span class="leaf leaf-c"></span>
+    <span class="leaf leaf-d"></span>
+    <span class="pot"></span>
+  </div>
+</section>
+
 <section class="grid two">
   <form class="panel upload-panel" action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
     <div class="panel-heading">
-      <p class="eyebrow">Vision scan</p>
+      <p class="eyebrow">Plant scan</p>
       <h2>Upload a leaf image</h2>
     </div>
 
@@ -26,8 +45,8 @@
 
   <div class="panel preview-panel">
     <div class="panel-heading">
-      <p class="eyebrow">Preview</p>
-      <h2>Image check</h2>
+      <p class="eyebrow">Live preview</p>
+      <h2>Photo readiness</h2>
     </div>
     <div class="image-preview" id="previewBox">
       <span>Preview appears here</span>

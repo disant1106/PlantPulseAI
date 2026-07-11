@@ -1,6 +1,6 @@
-# LeafScan.ai | PlantPulse AI v2.5
+# PlantPulse AI v2.5
 
-LeafScan.ai is an AI-powered plant health analysis web application that uses Gemini Vision/API to analyze leaf images, classify plant health status, estimate severity, generate care recommendations, store scan history in SQLite, and display dashboard insights.
+PlantPulse AI is an AI-powered plant health analysis web application that uses Gemini Vision/API to analyze leaf images, classify plant health status, estimate severity, generate care recommendations, store scan history in SQLite, and display dashboard insights.
 
 This is an AI vision integration project. It does not train a custom deep learning model, and it does not report official model accuracy.
 
@@ -130,6 +130,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-1.5-flash
 FLASK_SECRET_KEY=change_this_for_local_development
 MAX_UPLOAD_MB=8
+PORT=5050
 ```
 
 Run locally:
@@ -141,7 +142,7 @@ python app.py
 Open:
 
 ```text
-http://127.0.0.1:5000
+http://127.0.0.1:5050
 ```
 
 ## Routes
@@ -165,4 +166,4 @@ http://127.0.0.1:5000
 
 ## Resume Bullet
 
-Built LeafScan.ai, an AI-powered plant health assistant using Python Flask, SQLite, Chart.js, and Gemini Vision/API to analyze leaf images, classify plant health status, estimate severity, generate care recommendations, store scan history, and display dashboard insights.
+Built PlantPulse AI, an AI-powered plant health assistant using Python Flask, SQLite, Chart.js, and Gemini Vision/API to analyze leaf images, classify plant health status, estimate severity, generate care recommendations, store scan history, and display dashboard insights.

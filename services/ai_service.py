@@ -78,7 +78,7 @@ def _prompt(quality_warnings, reference_records):
     )
     warnings = " ".join(quality_warnings) if quality_warnings else "None detected."
     return f"""
-You are LeafScan.ai, an AI vision assistant for plant health screening.
+You are PlantPulse AI, an AI vision assistant for plant health screening.
 Analyze the uploaded leaf image using Gemini Vision. Return ONLY valid JSON.
 Do not claim custom training, official model accuracy, or a verified diagnosis.
 

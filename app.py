@@ -230,6 +230,6 @@ def too_large(_error):
 
 if __name__ == "__main__":
     create_app()
-    app.run(debug=False, host="127.0.0.1", port=5000)
+    app.run(debug=False, host="127.0.0.1", port=int(os.getenv("PORT", "5050")))
 else:
     create_app()

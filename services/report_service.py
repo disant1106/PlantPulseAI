@@ -8,7 +8,7 @@ def _list_block(title, items):
 
 
 def build_report(scan):
-    return f"""LeafScan.ai Plant Health Report
+    return f"""PlantPulse AI Plant Health Report
 =================================
 
 Scan ID: {scan["scan_id"]}
@@ -33,7 +33,7 @@ Disclaimer:
 
 def create_report(scan, reports_dir):
     Path(reports_dir).mkdir(parents=True, exist_ok=True)
-    filename = f"leafscan-report-{scan['scan_id']}.txt"
+    filename = f"plantpulse-report-{scan['scan_id']}.txt"
     path = Path(reports_dir) / filename
     path.write_text(build_report(scan), encoding="utf-8")
     return filename, path

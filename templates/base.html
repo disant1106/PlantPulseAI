@@ -3,17 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}LeafScan.ai{% endblock %}</title>
+    <title>{% block title %}PlantPulse AI{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
   <body>
+    <div class="garden-backdrop" aria-hidden="true">
+      <span class="tree-shape tree-left"></span>
+      <span class="tree-shape tree-right"></span>
+      <span class="leaf-shape leaf-one"></span>
+      <span class="leaf-shape leaf-two"></span>
+      <span class="leaf-shape leaf-three"></span>
+    </div>
     <div class="shell">
       <aside class="sidebar">
         <a class="brand" href="{{ url_for('index') }}">
-          <span class="brand-mark">LS</span>
+          <span class="brand-mark">PP</span>
           <span>
-            <strong>LeafScan.ai</strong>
-            <small>PlantPulse AI v2.5</small>
+            <strong>PlantPulse AI</strong>
+            <small>AI plant health tracker</small>
           </span>
         </a>
         <nav class="nav">
@@ -23,7 +30,7 @@
           <a href="{{ url_for('evaluation') }}">Evaluation</a>
         </nav>
         <p class="sidebar-note">
-          Gemini Vision performs image analysis. SQLite stores scan history, reports, dashboard data, and small demo evaluation records.
+          Gemini Vision performs image analysis. SQLite powers history, reports, dashboard insights, and small demo evaluation records.
         </p>
       </aside>
 
